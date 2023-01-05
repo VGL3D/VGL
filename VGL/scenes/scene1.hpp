@@ -6,7 +6,7 @@
 #define VGL_SCENE1_HPP
 
 #include "Classes/Libs/libs.hpp"
-
+//#include "Switcher.hpp"
 int win_width, win_height;
 float cam_theta, cam_phi = 25, cam_dist = 8;
 float cam_pan[3];
@@ -32,7 +32,7 @@ void reshape(int x, int y)
     glFrustum(-aspect * vsz, aspect * vsz, -vsz, vsz, 0.5, 500.0);
 }
 
-void LoadText(void)
+void LoadText(int textNo)
 {
     int i;
     const char *s, **text;
@@ -48,9 +48,14 @@ void LoadText(void)
     glLoadIdentity();
     glOrtho(0, win_width, 0, win_height, -1, 1);
 
-    text = helptext ;
+    switch (textNo) {
+        case 1:
+            text = helptext;
+        case 2:
+            text = scene2;
+    }
 
-    for(i=0; helptext[i]; i++) {
+    for(i=0; text[i]; i++) {
         glColor3f(0.5, 0.1, 0);
         glRasterPos2f(win_width/6, win_height - (i + 1) * 20 - 2);
         s = text[i];
@@ -64,20 +69,25 @@ void LoadText(void)
             glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *s++);
         }
     }
-
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
-
     glPopAttrib();
 }
 
 void displayText(){
-    time_t endwait = time(NULL) + 3;
+    time_t endwait = time(NULL) + 5;
     while(time(NULL) < endwait) {
-        std::cout<<time(NULL)<<" "<<endwait<<"\n";
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        LoadText();
-        glutSwapBuffers();
+        if(time(NULL)==endwait-1){
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            std::cout<<"Reached\n";
+            sceneCnt = 2;
+            glutSwapBuffers();
+        } else {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            std::cout << time(NULL) << " " << endwait << "\n";
+            LoadText(sceneCnt);
+            glutSwapBuffers();
+        }
     }
 }
 

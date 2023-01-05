@@ -22,4 +22,9 @@ static const char *helptext[] = {
         0
 };
 
+static const char *scene2[] = {
+        "You reached scene2",
+        0
+};
+
 #endif //GAMECLION_COMMON_H

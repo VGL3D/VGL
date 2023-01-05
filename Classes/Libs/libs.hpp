@@ -16,6 +16,8 @@
 #include "iostream"
 #include "string.h"
 #include "fstream"
+#include "common/objloader.hpp"
+#include "common/text2D.hpp"
 #include "stdlib.h"
 #include "vector"
 #include "math.h"
