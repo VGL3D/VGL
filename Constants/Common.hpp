@@ -5,18 +5,18 @@
 #ifndef GAMECLION_COMMON_H
 #define GAMECLION_COMMON_H
 
-#define QUOTE(...) #__VA_ARGS__
-const char *pyCode = QUOTE(
-        import sys;
-        import os;
-        sys.path.append('/home/soham/Documents/gameclion/Utils');
-        from Music import PlaySound;
-        //print('Hello from Python!!');
-);
+//#define QUOTE(...) #__VA_ARGS__
+//const char *pyCode = QUOTE(
+//        import sys;
+//        import os;
+//        sys.path.append('/home/soham/Documents/gameclion/Utils');
+//        from Music import PlaySound;
+//        //print('Hello from Python!!');
+//);
 
-char *getPycode(){
-    return const_cast<char *>(pyCode);
-}
+//char *getPycode(){
+//    return const_cast<char *>(pyCode);
+//}
 static const char *helptext[] = {
         "Hello world in game",
         0

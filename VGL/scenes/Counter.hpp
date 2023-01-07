@@ -5,6 +5,6 @@
 #ifndef VGL_COUNTER_HPP
 #define VGL_COUNTER_HPP
 
-int sceneCnt;
+extern int sceneCnt;
 
 #endif //VGL_COUNTER_HPP
