@@ -22,6 +22,6 @@ extern long nframes;
 void reshape(int x, int y);
 void LoadText();
 void displayText();
-void Switcher(int);
+void Switcher();
 
 #endif //VGL_SCENES_HPP

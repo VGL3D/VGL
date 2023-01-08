@@ -9,11 +9,11 @@
 #include "Scenes.hpp"
 #include "scene2.hpp"
 
-void Switcher(int scene) {
-    if(scene == 1){
+void Switcher() {
+    if(sceneCnt == 1){
         glutDisplayFunc(displayText);
     }
-    else if(scene == 3){
+    else if(sceneCnt == 3){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         std::cout<<"You reached scene2\n";
         glutSwapBuffers();
@@ -21,7 +21,7 @@ void Switcher(int scene) {
     else {
         std::cout<<"Error at switcher\n";
     }
-    std::cout<<scene<<"\n";
+    std::cout<<sceneCnt<<"\n";
 }
 
 #endif //VGL_SWITCHER_CPP
