@@ -7,7 +7,7 @@ Welcome to VGL an volvet compny's graphic loader Engine It's an open source proj
 
 Run this commands to install this project on your computer
 ```
-git clone https://github.com/VGL3D/VGL.git --recursive
+git clone https://github.com/VGL3D/VGL --recursive
 cd VGL
 mkdir build
 cmake .
