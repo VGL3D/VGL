@@ -22,6 +22,9 @@ int main(int argc,char *argv[]){
     frame_height = vr_state.height;
     if (posix_memalign((void**)&frame_data, ALIGNMENT, frame_width * frame_height * 4) != 0) { printf("Couldn't allocate frame buffer\n"); return 1;}
     while (!glfwWindowShouldClose(window)) {
+        if (glfwGetKey(window , GLFW_KEY_ESCAPE) == GLFW_PRESS){
+            glfwSetWindowShouldClose(window , 1);
+        }
         Switcher();
     }
     video_reader_close(&vr_state);
