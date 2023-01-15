@@ -3,4 +3,4 @@ cmake-build-debug
 build
 bin
 .vscode
-libs/glfw
+lib/glfw
