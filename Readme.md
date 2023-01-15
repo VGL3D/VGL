@@ -12,4 +12,5 @@ cd VGL
 mkdir build
 cmake .
 make
+./bin/Random
 ```
