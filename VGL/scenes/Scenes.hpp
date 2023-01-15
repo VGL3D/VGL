@@ -6,6 +6,7 @@
 #define VGL_SCENES_HPP
 
 #include "Classes/Libs/libs.hpp"
+#include "VGL/scenes/common.hpp"
 
 //#include "Counter.hpp"
 extern int sceneCnt;
@@ -17,6 +18,16 @@ extern int bnstate[8];
 extern int anim, help;
 extern long anim_start;
 extern long nframes;
+
+struct WindowData{
+    int window_height;
+    int window_width;
+};
+
+struct VideState{
+    const int frame_height;
+    const int frame_width;
+};
 
 #define ZNEAR	0.5f
 void reshape(int x, int y);

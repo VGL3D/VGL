@@ -1,39 +1,57 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0 FATAL_ERROR)
-PROJECT(VGL C CXX)
+cmake_minimum_required(VERSION 3.14)
+project(VGL C CXX)
+set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
+add_subdirectory(lib/glfw)
+add_subdirectory(lib/FFmpeg)
+
+add_definitions(-DGL_SILENCE_DEPRECATION)
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
-#IF(WIN32)
-#    SET(PC_LIBS_PRIVATE "-lopengl32 -lwinmm -lgdi32")
-#ELSEIF(FREEGLUT_GLES)
-#    IF(ANDROID)
-#        SET(PC_LIBS_PRIVATE "-llog -landroid -lGLESv2 -lGLESv1_CM -lEGL -lm")
-#    ELSEIF(BLACKBERRY)
-#        IF(PLAYBOOK)
-#            SET(PC_LIBS_PRIVATE "-lbps -lscreen -lGLESv2 -lGLESv1_CM -lEGL -lm")
-#        ELSE()
-#            SET(PC_LIBS_PRIVATE "-lbps -lslog2 -lscreen -lGLESv2 -lGLESv1_CM -lEGL -lm")
-#        ENDIF()
-#    ELSEIF(FREEGLUT_WAYLAND)
-#        SET(PC_LIBS_PRIVATE "-lwayland-client -lwayland-cursor -lwayland-egl -lGLESv2 -lGLESv1_CM -lEGL -lxkbcommon -lm")
-#    ELSE()
-#        SET(PC_LIBS_PRIVATE "-lglfw3 -lX11 -lXxf86vm -lXrandr -lGLESv2 -lGLESv1_CM -lEGL -lm -lXinerama -lXcursor -pthread")
-#    ENDIF()
-#ELSE()
-#    IF(FREEGLUT_WAYLAND)
-#        SET(PC_LIBS_PRIVATE "-lwayland-client -lwayland-cursor -lwayland-egl -lGL -lxkbcommon -lm -lXinerama -lXcursor -pthread")
-#    ELSE()
-#        SET(PC_LIBS_PRIVATE "-lglfw3 -lX11 -lXxf86vm -lXrandr -lGL -lm -lXinerama -lXcursor -pthread")
-#    ENDIF()
-#ENDIF()
-
-find_package(PythonLibs REQUIRED)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/libs)
 include_directories(${PROJECT_SOURCE_DIR})
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
-add_executable(Random Random/run.cpp VGL/scenes/Scenes.hpp VGL/scenes/Switcher.cpp VGL/scenes/Scene1/scene1.cpp VGL/scenes/Scene1/scene1.cpp)
-add_executable(Encodes VGL/Encrypt/Encode.cpp)
-target_link_libraries(Random -lglut -lglfw3 -lX11  -lXrandr  -lXxf86vm  -lXi -lGLU  -lGL  -lm -lpython3.10  -lXinerama  -lXcursor  -pthread -lGLEW)
-include_directories(Classes/ImageLoader/stb_image.hpp Classes/LoadTexture/LoadTexture.hpp)
+file(COPY Assets DESTINATION ${CMAKE_BINARY_DIR})
+
+list(APPEND SOURCES
+    src/main.cpp
+    src/video_reader.cpp
+    src/video_reader.hpp
+)
+
+add_executable(Random Random/run.cpp
+        VGL/scenes/Scenes.hpp
+        VGL/scenes/Switcher.cpp
+        VGL/scenes/Scene1/scene1.cpp
+        VGL/scenes/Scene1/scene1.cpp
+        VGL/Loader/Video/video_reader.cpp
+        VGL/Loader/Video/video_reader.hpp
+        VGL/scenes/Scene2/scene2.cpp VGL/scenes/Scene2/scene2.hpp)
+add_executable(VGL MACOSX_BUNDLE WIN32 ${SOURCES} src/glffw.h)
+
+if(APPLE)
+    list(APPEND EXTRA_LIBS
+        "-framework OpenGL"
+    )
+
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/MacOSXBundleInfo.plist.in
+        ${CMAKE_CURRENT_BINARY_DIR}/assets/MacOSXBundleInfo.plist
+    )
+
+    set_target_properties(video-app PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/assets/MacOSXBundleInfo.plist
+    )
+
+elseif(WIN32)
+    list(APPEND EXTRA_LIBS
+        "-lglu32 -lopengl32"
+    )
+    set(CMAKE_EXE_LINKER_FLAGS "-std=gnu99 -static -static-libgcc -static-libstdc++ -mwindows")
+else()
+    list(APPEND EXTRA_LIBS
+        "-lGL -lGLU -lglut -lX11 -lXrandr  -lXxf86vm  -lXi  -lXinerama  -lXcursor  -pthread"
+    )
+endif()
+
+target_link_libraries(VGL FFmpeg glfw ${EXTRA_LIBS})
+target_link_libraries(Random FFmpeg glfw ${EXTRA_LIBS})

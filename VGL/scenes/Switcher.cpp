@@ -7,16 +7,15 @@
 
 #include "Classes/Libs/libs.hpp"
 #include "Scenes.hpp"
-#include "scene2.hpp"
+#include "VGL/scenes/Scene2/scene2.hpp"
+
 
 void Switcher() {
     if(sceneCnt == 1){
-        glutDisplayFunc(displayText);
+        LoadVideo();
     }
     else if(sceneCnt == 3){
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         std::cout<<"You reached scene2\n";
-        glutSwapBuffers();
     }
     else {
         std::cout<<"Error at switcher\n";

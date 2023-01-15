@@ -6,13 +6,12 @@
 #define GAMECLION_LIBS_HPP
 
 #include "glm/vec2.hpp"
-#include <GL/glut.h>    //here
-//#include "include/glad/glad.h"
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
 #include "Constants/Common.hpp"
+#include "src/video_reader.hpp"
 #include "GLFW/glfw3.h"
-#include "GL/freeglut.h"
+//#include "GL/gl.h"
 #include "iostream"
 #include "string.h"
 #include "fstream"
