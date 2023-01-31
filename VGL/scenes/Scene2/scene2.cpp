@@ -11,9 +11,9 @@ const int ALIGNMENT = 128;
 int frame_width;
 int frame_height;
 uint8_t *frame_data;
+GLuint tex_handle;
 
-int LoadVideo() {
-    GLuint tex_handle;
+int genrate_textures(){
     glGenTextures(1, &tex_handle);
     glBindTexture(GL_TEXTURE_2D, tex_handle);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -22,6 +22,10 @@ int LoadVideo() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+int LoadVideo() {
     //glfwMaximizeWindow(window);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Set up orphographic projection
@@ -30,7 +34,6 @@ int LoadVideo() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     float aspect = window_width / window_height;
-    cout << "Width:" << window_width << " Height:" << window_height << " Aspect:" << aspect << "\n";
     glViewport(0, 0, window_width, window_height);
     glOrtho(window_width / 8, (window_width), window_height, window_height / 5, 1.0, -1.0);
     glMatrixMode(GL_MODELVIEW);

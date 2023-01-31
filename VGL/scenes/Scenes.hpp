@@ -9,7 +9,7 @@
 #include "VGL/scenes/common.hpp"
 #include "VGL/Shader.h"
 
-//#include "Counter.hpp"
+// #include "Counter.hpp"
 extern int sceneCnt;
 extern int win_width, win_height;
 extern float cam_theta, cam_phi, cam_dist;
@@ -19,26 +19,28 @@ extern int bnstate[8];
 extern int anim, help;
 extern long anim_start;
 extern long nframes;
-extern GLuint VBO, VAO, EBO,texture;
+extern GLuint VBO, VAO, EBO, texture;
 
-struct WindowData{
+struct WindowData
+{
     int window_height;
     int window_width;
 };
 
-struct VideState{
+struct VideState
+{
     const int frame_height;
     const int frame_width;
 };
 
-extern Shader ourShader;
+extern char* path;
+//extern Shader ourShader;
 
-#define ZNEAR	0.5f
-void reshape(int x, int y);
-void LoadText();
-void displayText();
-void Switcher();
-void load_texture();
-int load_text();
+#define ZNEAR 0.5f
+void Switcher(Shader ourShader);
+void load_texture(char* path);
+int load_text(Shader ourShader);
+int genrate_textures();
 
-#endif //VGL_SCENES_HPP
+
+#endif // VGL_SCENES_HPP

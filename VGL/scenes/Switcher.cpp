@@ -9,23 +9,43 @@
 #include "Scenes.hpp"
 #include "VGL/scenes/Scene2/scene2.hpp"
 
-GLuint VBO, VAO, EBO,texture;
-void Switcher() {
-    if(sceneCnt == 1){
-    Shader ourShader("res/shaders/core.vs", "res/shaders/core.frag");
-    load_texture();
-    load_text();
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+// GLuint VBO, VAO, EBO;
+// GLFWwindow *window;
+void Switcher(Shader ourShader)
+{
+    time_t endwait = time(NULL) + 10;
+    if (time(NULL) <= endwait - 6)
+    {
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        // std::cout<<"Reached\n";
+        LoadVideo();
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+        sceneCnt = 2;
     }
-    else if(sceneCnt == 2){
-        std::cout<<"You reached scene2\n";
+    else if (time(NULL) == endwait - 1)
+    {
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        sceneCnt = 3;
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+        // exit(1);
     }
-    else {
-        std::cout<<"Error at switcher\n";
+    else if (time(NULL) <= endwait - 10)
+    {
+        load_text(ourShader);
     }
+    else
+    {
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+    std::cout<<"Time:" << time(NULL) << "Remaining:" << endwait << "\n";
     std::cout<<sceneCnt<<"\n";
 }
 
-#endif //VGL_SWITCHER_CPP
+#endif // VGL_SWITCHER_CPP

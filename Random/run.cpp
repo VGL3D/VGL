@@ -4,6 +4,7 @@
 // https://www.youtube.com/watch?v=45MIykWJ-C4
 #include "../Classes/Libs/libs.hpp"
 #include "VGL/scenes/Scenes.hpp"
+#include "VGL/SOIL2/SOIL2.h"
 
 const int ALIGNMENT = 128;
 float cam_theta = 25, cam_dist = 8;
@@ -11,6 +12,7 @@ int sceneCnt = 1;
 
 int main(int argc, char *argv[])
 {
+    char* path = "res/images/454841.jpg";
     if (!glfwInit())
     {
         printf("GLFW error!\n");
@@ -19,7 +21,7 @@ int main(int argc, char *argv[])
     GLFWmonitor *MyMonitor = glfwGetPrimaryMonitor();
     const GLFWvidmode *mode = glfwGetVideoMode(MyMonitor);
     int mWidth = glfwGetVideoMode(glfwGetPrimaryMonitor())->width, mHeight = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
-    window = glfwCreateWindow(mWidth, mHeight, "Astravarse", MyMonitor, NULL);
+    window = glfwCreateWindow(800, 600, "Astravarse", NULL, NULL);
     if (!window)
     {
         printf("\nwindow Error");
@@ -44,14 +46,22 @@ int main(int argc, char *argv[])
         printf("Couldn't allocate frame buffer\n");
         return 1;
     }
+    Shader ourShader = Shader("res/shaders/core.vs", "res/shaders/core.frag");
+    std::cout<<ourShader.Program<<std::endl;
+    load_texture(path);
+    genrate_textures();
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(window, 1);
         }
-        Switcher();
+        Switcher(ourShader);
     }
     video_reader_close(&vr_state);
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    glfwTerminate();
     return 0;
 }
