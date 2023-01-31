@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(VGL C CXX)
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(lib/glfw)
+#add_subdirectory(lib/glfw)
 add_subdirectory(lib/FFmpeg)
 
 add_definitions(-DGL_SILENCE_DEPRECATION)
@@ -21,6 +21,7 @@ list(APPEND SOURCES
 add_executable(Random Random/run.cpp
         VGL/scenes/Scenes.hpp
         VGL/scenes/Switcher.cpp
+        VGL/scenes/load_texture.cpp
         VGL/scenes/Scene1/scene1.cpp
         VGL/scenes/Scene1/scene1.cpp
         VGL/Loader/Video/video_reader.cpp
@@ -49,9 +50,9 @@ elseif(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "-std=gnu99 -static -static-libgcc -static-libstdc++ -mwindows")
 else()
     list(APPEND EXTRA_LIBS
-        "-lGL -lGLU -lglut -lX11 -lXrandr  -lXxf86vm  -lXi  -lXinerama  -lXcursor  -pthread"
+        "-lGL -lGLU -lGLEW -lglfw -lSOIL"
     )
 endif()
 
-target_link_libraries(VGL FFmpeg glfw ${EXTRA_LIBS})
-target_link_libraries(Random FFmpeg glfw ${EXTRA_LIBS})
+target_link_libraries(VGL FFmpeg ${EXTRA_LIBS})
+target_link_libraries(Random FFmpeg ${EXTRA_LIBS})

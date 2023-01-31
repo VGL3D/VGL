@@ -4,3 +4,4 @@ build
 bin
 .vscode
 lib/glfw
+/VGL/SOIL2

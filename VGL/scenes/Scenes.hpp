@@ -7,6 +7,7 @@
 
 #include "Classes/Libs/libs.hpp"
 #include "VGL/scenes/common.hpp"
+#include "VGL/Shader.h"
 
 //#include "Counter.hpp"
 extern int sceneCnt;
@@ -18,6 +19,7 @@ extern int bnstate[8];
 extern int anim, help;
 extern long anim_start;
 extern long nframes;
+extern GLuint VBO, VAO, EBO,texture;
 
 struct WindowData{
     int window_height;
@@ -29,10 +31,14 @@ struct VideState{
     const int frame_width;
 };
 
+extern Shader ourShader;
+
 #define ZNEAR	0.5f
 void reshape(int x, int y);
 void LoadText();
 void displayText();
 void Switcher();
+void load_texture();
+int load_text();
 
 #endif //VGL_SCENES_HPP

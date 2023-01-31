@@ -10,6 +10,7 @@
 #include "glm/vec4.hpp"
 #include "Constants/Common.hpp"
 #include "src/video_reader.hpp"
+#include "GL/glew.h"
 #include "GLFW/glfw3.h"
 //#include "GL/gl.h"
 #include "iostream"
@@ -20,6 +21,5 @@
 #include "stdlib.h"
 #include "vector"
 #include "math.h"
-#include "GLES3/gl3.h"
 
 #endif //GAMECLION_LIBS_HPP
