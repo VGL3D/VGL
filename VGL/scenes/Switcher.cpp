@@ -13,7 +13,7 @@
 // GLFWwindow *window;
 void Switcher(Shader ourShader)
 {
-    time_t endwait = time(NULL) + 10;
+    const time_t endwait = time(NULL) + 10;
     if (time(NULL) <= endwait - 6)
     {
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
