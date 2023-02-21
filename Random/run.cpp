@@ -1,7 +1,6 @@
 //
 // Created by soham on 12/26/22.
 //
-// https://www.youtube.com/watch?v=45MIykWJ-C4
 #include "../Classes/Libs/libs.hpp"
 #include "VGL/scenes/Scenes.hpp"
 #include "VGL/SOIL2/SOIL2.h"
@@ -12,7 +11,7 @@ int sceneCnt = 1;
 
 int main(int argc, char *argv[])
 {
-    char* path = "res/images/454841.jpg";
+    char *path = "res/images/454841.jpg";
     if (!glfwInit())
     {
         printf("GLFW error!\n");
@@ -46,10 +45,13 @@ int main(int argc, char *argv[])
         printf("Couldn't allocate frame buffer\n");
         return 1;
     }
-    Shader ourShader = Shader("res/shaders/core.vs", "res/shaders/core.frag");
-    std::cout<<ourShader.Program<<std::endl;
-    load_texture(path);
+    GLFWimage images[1];
+    images[0].pixels = SOIL_load_image("Assets/images/coin.png", &images[0].width, &images[0].height, 0, 4); // rgba channels
+    glfwSetWindowIcon(window, 1, images);
+    Shader ourShader = Shader("Assets/res/shaders/core.vs", "Assets/res/shaders/core.frag");
+    std::cout << ourShader.Program << std::endl;
     genrate_textures();
+    load_texture(path);
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)

@@ -13,7 +13,8 @@ int frame_height;
 uint8_t *frame_data;
 GLuint tex_handle;
 
-int genrate_textures(){
+void genrate_textures()
+{
     glGenTextures(1, &tex_handle);
     glBindTexture(GL_TEXTURE_2D, tex_handle);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -25,8 +26,10 @@ int genrate_textures(){
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-int LoadVideo() {
-    //glfwMaximizeWindow(window);
+int LoadVideo()
+{
+    // glfwMaximizeWindow(window);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Set up orphographic projection
     int window_width, window_height;
@@ -39,17 +42,20 @@ int LoadVideo() {
     glMatrixMode(GL_MODELVIEW);
     // Read a new frame and load it into texture
     int64_t pts;
-    if (!video_reader_read_frame(&vr_state, frame_data, &pts)) {
+    if (!video_reader_read_frame(&vr_state, frame_data, &pts))
+    {
         printf("Couldn't load video frame\n");
         return 1;
     }
     static bool first_frame = true;
-    if (first_frame) {
+    if (first_frame)
+    {
         glfwSetTime(0.0);
         first_frame = false;
     }
-    double pt_in_seconds = pts * (double) vr_state.time_base.num / (double) vr_state.time_base.den;
-    while (pt_in_seconds > glfwGetTime()) {
+    double pt_in_seconds = pts * (double)vr_state.time_base.num / (double)vr_state.time_base.den;
+    while (pt_in_seconds > glfwGetTime())
+    {
         glfwWaitEventsTimeout(pt_in_seconds - glfwGetTime());
     }
     glBindTexture(GL_TEXTURE_2D, tex_handle);
@@ -71,4 +77,3 @@ int LoadVideo() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
-

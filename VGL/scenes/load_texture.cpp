@@ -1,58 +1,109 @@
+#include "Classes/Libs/libs.hpp"
+#include "math.h"
 #include "VGL/scenes/Scenes.hpp"
-#include "VGL/SOIL2/SOIL2.h"
-#include "VGL/Shader.h"
 
-// GLfloat vertices[] =
-//     {
-//         // Positions          // Colors           // Texture Coords
-//         1.5f, 1.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top Right
-//         1.5f, -1.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // Bottom Right
-//         -1.5f, -1.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // Bottom Left
-//         -1.5f, 1.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // Top Left
-// };
-// GLfloat indices[] =
-//     {
-//         // Note that we start from 0!
-//         0, 1, 3, // First Triangle
-//         1, 2, 3  // Second Triangle
+GLint windowWidth, windowHeight;
+
+// float vert2[] = {
+//     0.5f, 0.5f, 0.0f, // top right
+//     0.5f, -0.5f, 0.0f, // bottom right
+//     -0.5f, -0.5f, 0.0f, // bottom left
+//     -0.5f, 0.5f, 0.0f // top left
 // };
 
-// void load_texture()
+GLfloat ind2[] = {
+    0, 1, 3, // first triangle
+    1, 2, 3};
+
+GLfloat vert2[] =
+    {
+        -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1,
+        1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1,
+        -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1,
+        -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1,
+        -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1,
+        -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1};
+
+GLfloat colors[] =
+    {
+        0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0,
+        1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0,
+        0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0,
+        0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1};
+
+void draw_cube()
+{
+
+    static float alpha = 0;
+    // attempt to rotate cube
+    glRotatef(alpha, 0, 1, 0);
+
+    /* We have a color array and a vertex array */
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vert2);
+    glColorPointer(3, GL_FLOAT, 0, colors);
+
+    /* Send data : 24 vert2 */
+    glDrawArrays(GL_QUADS, 0, 24);
+
+    /* Cleanup states */
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    alpha += 1;
+}
+
+void test_cube()
+{
+    // Scale to window size  09bny76vvv
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glfwGetWindowSize(window, &windowWidth, &windowHeight);
+    glViewport(0, 0, windowWidth, windowHeight);
+    // Draw stuff
+    glMatrixMode(GL_PROJECTION_MATRIX);
+    glLoadIdentity();
+    gluPerspective(60, (double)windowWidth / (double)windowHeight, 0.1, 100);
+
+    glMatrixMode(GL_MODELVIEW_MATRIX);
+    glTranslatef(0, 0, -5);
+
+    draw_cube();
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+// void testing()
 // {
-//     glEnable(GL_BLEND);
-//     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//     GLuint VBO, VAO, EBO;
-//     glGenVertexArrays(1, &VAO);
-//     glGenBuffers(1, &VBO);
-//     glGenBuffers(1, &EBO);
+//     glfwInit();
+//     window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+//     if (window == NULL)
+//     {
+//         printf("Failed to create GLFW window");
+//         glfwTerminate();
+//         return -1;
+//     }
+//     GLenum err;
+//     glfwMakeContextCurrent(window);
+//     glewExperimental = GL_TRUE;
+//     if (glewInit() != GLEW_OK)
+//     {
+//         std::cout << glewGetErrorString(err) << "\n";
+//     }
 
-//     glBindVertexArray(VAO);
-
-//     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-//     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-//     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-//     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
-//     glEnableVertexAttribArray(0);
-//     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
-//     glEnableVertexAttribArray(1);
-//     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
-//     glEnableVertexAttribArray(2);
-
-//     glBindVertexArray(0); // Unbind VAO
-//     GLuint texture;
-//     int width, height;
-//     glGenTextures(1, &texture);
-//     glBindTexture(GL_TEXTURE_2D, texture);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//     unsigned char *image = SOIL_load_image("res/images/454841.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
-//     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-//     glGenerateMipmap(GL_TEXTURE_2D);
-//     SOIL_free_image_data(image);
-//     glBindTexture(GL_TEXTURE_2D, 0);
-//     std::cout<<"VAOtest:"<<VAO<<"VBO:"<<VBO<<"EBO:"<<EBO<<"\n";
+//     glViewport(0, 0, 800, 600);
+//     while (!glfwWindowShouldClose(window))
+//     {
+//         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//         // shaderProgram.Activate();
+//         // vao1.Bind();
+//         // glDrawArrays(GL_QUADS, 0, 24);
+//         // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+//         display();
+//     }
+//     glfwTerminate();
+//     return 0;
 // }

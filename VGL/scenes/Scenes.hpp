@@ -40,7 +40,9 @@ extern char* path;
 void Switcher(Shader ourShader);
 void load_texture(char* path);
 int load_text(Shader ourShader);
-int genrate_textures();
+void genrate_textures();
+void draw_cube();
+void test_cube();
 
 
 #endif // VGL_SCENES_HPP
