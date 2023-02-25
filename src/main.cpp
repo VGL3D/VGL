@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include "iostream"
 #include <stdlib.h>
-#include <GLFW/glfw3.h>
 #include "video_reader.hpp"
-#include "glffw.h"
+#include <GLFW/glfw3.h>
 
 GLFWwindow* window;
 VideoReaderState vr_state;

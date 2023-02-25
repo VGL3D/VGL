@@ -12,6 +12,7 @@ int sceneCnt = 1;
 int main(int argc, char *argv[])
 {
     char *path = "res/images/454841.jpg";
+    glewInit();
     if (!glfwInit())
     {
         printf("GLFW error!\n");

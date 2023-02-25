@@ -28,7 +28,7 @@ add_executable(Random Random/run.cpp
         VGL/Loader/Video/video_reader.hpp
         VGL/scenes/Scene2/scene2.cpp
         VGL/scenes/Scene2/scene2.hpp)
-add_executable(VGL MACOSX_BUNDLE WIN32 ${SOURCES} src/glffw.h)
+add_executable(VGL MACOSX_BUNDLE WIN32 ${SOURCES})
 
 if(APPLE)
     list(APPEND EXTRA_LIBS

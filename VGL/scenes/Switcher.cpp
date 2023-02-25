@@ -19,7 +19,8 @@ void Switcher(Shader ourShader)
     if (sceneCnt == 1)
     {
         //test_cube();
-        load_text(ourShader);
+        //load_text(ourShader);
+        LoadVideo();
         //sceneCnt = 2;
     }
     else if (sceneCnt == 3)
