@@ -1,6 +1,6 @@
 #include "Classes/Libs/libs.hpp"
 #include "math.h"
-#include "VGL/scenes/Scenes.hpp"
+#include "VGL/Scenes.hpp"
 
 GLint windowWidth, windowHeight;
 

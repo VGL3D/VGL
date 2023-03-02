@@ -2,7 +2,7 @@
 // Created by soham on 12/26/22.
 //
 #include "../Classes/Libs/libs.hpp"
-#include "VGL/scenes/Scenes.hpp"
+#include "VGL/Scenes.hpp"
 #include "VGL/SOIL2/SOIL2.h"
 
 const int ALIGNMENT = 128;

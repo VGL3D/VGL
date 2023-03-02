@@ -1,4 +1,4 @@
-#include "video_reader.hpp"
+#include "VGL/video_reader.hpp"
 
 // av_err2str returns a temporary array. This doesn't work in gcc.
 // This function can be used as a replacement for av_err2str.

@@ -9,7 +9,7 @@
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
 #include "Constants/Common.hpp"
-#include "src/video_reader.hpp"
+#include "VGL/video_reader.hpp"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 //#include "GL/gl.h"

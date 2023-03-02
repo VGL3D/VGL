@@ -2,7 +2,7 @@
 // Created by soham on 1/15/23.
 //
 
-#include "scene2.hpp"
+#include "Classes/Libs/libs.hpp"
 
 GLFWwindow *window;
 VideoReaderState vr_state;

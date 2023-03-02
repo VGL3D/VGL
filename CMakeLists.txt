@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(VGL C CXX)
 set(CMAKE_CXX_STANDARD 14)
 
-#add_subdirectory(lib/glfw)
+# add_subdirectory(lib/glfw)
 add_subdirectory(lib/FFmpeg)
 
 add_definitions(-DGL_SILENCE_DEPRECATION)
@@ -12,23 +12,18 @@ SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/libs)
 include_directories(${PROJECT_SOURCE_DIR})
 file(COPY Assets DESTINATION ${CMAKE_BINARY_DIR})
 
-list(APPEND SOURCES
-    src/main.cpp
-    src/video_reader.cpp
-    src/video_reader.hpp
-)
 
-add_executable(Random Random/run.cpp
-        VGL/scenes/Scenes.hpp
-        VGL/scenes/Switcher.cpp
-        VGL/scenes/load_texture.cpp
-        VGL/scenes/Scene1/scene1.cpp
-        VGL/scenes/Scene1/scene1.cpp
-        VGL/Loader/Video/video_reader.cpp
-        VGL/Loader/Video/video_reader.hpp
-        VGL/scenes/Scene2/scene2.cpp
-        VGL/scenes/Scene2/scene2.hpp)
-add_executable(VGL MACOSX_BUNDLE WIN32 ${SOURCES})
+add_executable(Random 
+    Random/run.cpp
+    VGL/Scenes.hpp
+    VGL/common.hpp
+    src/Switcher.cpp
+    src/video_reader.cpp
+    VGL/video_reader.hpp
+    src/load_texture.cpp
+    src/Scene1/scene1.cpp
+    src/Scene2/scene2.cpp
+    )
 
 if(APPLE)
     list(APPEND EXTRA_LIBS
@@ -55,5 +50,4 @@ else()
     )
 endif()
 
-target_link_libraries(VGL FFmpeg ${EXTRA_LIBS})
 target_link_libraries(Random FFmpeg ${EXTRA_LIBS})

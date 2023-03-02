@@ -2,7 +2,7 @@
 // Created by soham on 1/7/23.
 //
 
-#include "VGL/scenes/Scenes.hpp"
+#include "VGL/Scenes.hpp"
 
 #include <iostream>
 #define GLEW_STATIC

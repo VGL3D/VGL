@@ -6,7 +6,7 @@
 #define VGL_SCENES_HPP
 
 #include "Classes/Libs/libs.hpp"
-#include "VGL/scenes/common.hpp"
+#include "VGL/common.hpp"
 #include "VGL/Shader.h"
 
 // #include "Counter.hpp"
@@ -21,17 +21,6 @@ extern long anim_start;
 extern long nframes;
 extern GLuint VBO, VAO, EBO, texture;
 
-struct WindowData
-{
-    int window_height;
-    int window_width;
-};
-
-struct VideState
-{
-    const int frame_height;
-    const int frame_width;
-};
 
 extern char* path;
 //extern Shader ourShader;
@@ -42,6 +31,7 @@ void load_texture(char* path);
 int load_text(Shader ourShader);
 void genrate_textures();
 void draw_cube();
+int LoadVideo();
 void test_cube();
 
 

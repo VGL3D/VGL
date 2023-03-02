@@ -7,8 +7,7 @@
 
 #include "Classes/Libs/libs.hpp"
 #include "unistd.h"
-#include "Scenes.hpp"
-#include "VGL/scenes/Scene2/scene2.hpp"
+#include "VGL/Scenes.hpp"
 
 // GLuint VBO, VAO, EBO;
 // GLFWwindow *window;
