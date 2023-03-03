@@ -1,6 +1,6 @@
 # Welcome to VGL!
 
-Welcome to VGL an volvet compny's graphic loader Engine It's an open source project.Sohope you enjoy it
+Welcome to VGL an volvet compny's graphic loader Engine It's an open source project. So hope you enjoy it!
 
 
 # Install project
