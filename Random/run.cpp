@@ -3,7 +3,7 @@
 //
 #include "../Classes/Libs/libs.hpp"
 #include "VGL/Scenes.hpp"
-#include "VGL/SOIL2/SOIL2.h"
+#include "SOIL/SOIL.h"
 
 const int ALIGNMENT = 128;
 float cam_theta = 25, cam_dist = 8;

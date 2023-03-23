@@ -76,4 +76,5 @@ int LoadVideo()
     glDisable(GL_TEXTURE_2D);
     glfwSwapBuffers(window);
     glfwPollEvents();
+    return 0;
 }

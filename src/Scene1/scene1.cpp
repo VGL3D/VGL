@@ -8,7 +8,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "VGL/SOIL2/SOIL2.h"
+#include "SOIL/SOIL.h"
 #include "VGL/Shader.h"
 
 const GLuint WIDTH = 800, HEIGHT = 600;

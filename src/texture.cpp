@@ -1,5 +1,5 @@
 #include "texture.h"
-#include "src/SOIL2/SOIL2.h"
+#include "src/SOIL2/SOIL.h"
 
 Texture ::Texture(const char *image, GLenum textype, GLenum slot, GLenum format, GLenum pixeltype)
 {

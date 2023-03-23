@@ -47,7 +47,7 @@ bool video_reader_open(VideoReaderState* state, const char* filename) {
     // Find the first valid video stream inside the file
     video_stream_index = -1;
     AVCodecParameters* av_codec_params;
-    AVCodec* av_codec;
+    const AVCodec* av_codec;
     for (int i = 0; i < av_format_ctx->nb_streams; ++i) {
         av_codec_params = av_format_ctx->streams[i]->codecpar;
         av_codec = avcodec_find_decoder(av_codec_params->codec_id);

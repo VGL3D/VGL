@@ -17,10 +17,10 @@ void Switcher(Shader ourShader)
     const time_t endwait = time(NULL) + 10;
     if (sceneCnt == 1)
     {
-        //test_cube();
+        // test_cube();
         //load_text(ourShader);
         LoadVideo();
-        //sceneCnt = 2;
+        // sceneCnt = 3;
     }
     else if (sceneCnt == 3)
     {
