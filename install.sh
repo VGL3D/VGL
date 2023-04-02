@@ -18,3 +18,4 @@
  apt install ffmpeg -y
 apt-get install libglfw3-dev -y
 apt-get install libglm-dev  -y
+apt install pkgconf -y
