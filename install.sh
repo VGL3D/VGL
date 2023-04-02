@@ -19,3 +19,4 @@
 apt-get install libglfw3-dev -y
 apt-get install libglm-dev  -y
 apt install pkgconf -y
+apt-get install libglew-dev -y
