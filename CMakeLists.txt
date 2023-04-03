@@ -10,22 +10,11 @@ set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/libs)
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/include)
 file(COPY Assets DESTINATION ${CMAKE_BINARY_DIR})
 
-
-add_executable(Random 
-    Random/run.cpp
-    VGL/Scenes.hpp
-    VGL/common.hpp
-    src/Switcher.cpp
-    src/video_reader.cpp
-    VGL/video_reader.hpp
-    src/load_texture.cpp
-    src/Scene1/scene1.cpp
-    src/Scene2/scene2.cpp
-    )
-
 if(APPLE)
+    link_directories(${PROJECT_SOURCE_DIR}/libs/mac)
     list(APPEND EXTRA_LIBS
         "-framework OpenGL"
     )
@@ -40,14 +29,32 @@ if(APPLE)
     )
 
 elseif(WIN32)
+    link_directories(${PROJECT_SOURCE_DIR}/libs/windows)
     list(APPEND EXTRA_LIBS
         "-lglu32 -lopengl32"
     )
     set(CMAKE_EXE_LINKER_FLAGS "-std=gnu99 -static -static-libgcc -static-libstdc++ -mwindows")
 else()
+link_directories(${PROJECT_SOURCE_DIR}/libs/linux)
     list(APPEND EXTRA_LIBS
-        "-lGL -lGLU -lGLEW -lglfw -lSOIL"
+        "-lGL -lGLU -lGLEW -lglfw -lSOIL -lIrrKlang"
     )
 endif()
 
+list(APPEND SOURCES
+    VGL/Scenes.hpp
+    VGL/common.hpp
+    src/Switcher.cpp
+    src/video_reader.cpp
+    VGL/video_reader.hpp
+    src/load_texture.cpp
+    src/Scene1/scene1.cpp
+    src/Scene2/scene2.cpp
+)
+
+add_executable(Random Random/run.cpp ${SOURCES})
+add_executable(Testing Random/audio.cpp)
+
+
 target_link_libraries(Random FFmpeg ${EXTRA_LIBS})
+target_link_libraries(Testing FFmpeg ${EXTRA_LIBS})
